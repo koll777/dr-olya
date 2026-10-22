@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d9dce0">
+  <meta name="description" content="Маленькое интерактивное поздравление для Оли">
+  <title>Для Оли ✦</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="orientation-gate" id="orientationGate" aria-live="polite">
+    <div class="orientation-inner">
+      <div class="flip-demo" aria-hidden="true">
+        <span class="orbit-arrow orbit-arrow-one">↻</span>
+        <span class="orbit-arrow orbit-arrow-two">↺</span>
+        <svg class="phone-portrait" viewBox="0 0 68 116" role="img" aria-label="Телефон вертикально">
+          <rect x="7" y="2" width="54" height="112" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+          <rect x="12" y="10" width="44" height="92" rx="5" fill="currentColor" opacity=".09"/>
+          <rect x="27" y="5" width="14" height="2.5" rx="1.2" fill="currentColor"/>
+          <circle cx="34" cy="108" r="2" fill="currentColor"/>
+        </svg>
+        <svg class="phone-landscape" viewBox="0 0 116 68" role="img" aria-label="Телефон горизонтально">
+          <rect x="2" y="7" width="112" height="54" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+          <rect x="10" y="12" width="92" height="44" rx="5" fill="currentColor" opacity=".09"/>
+          <rect x="5" y="27" width="2.5" height="14" rx="1.2" fill="currentColor"/>
+          <circle cx="108" cy="34" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+      <p class="orientation-kicker">Маленькая история для тебя</p>
+      <h1>Поверни экранчик</h1>
+      <p class="orientation-copy">Это поздравление оживает, когда телефон лежит горизонтально ✨</p>
+    </div>
+  </div>
+
+  <main class="page-shell" id="pageShell">
+    <section class="experience" id="experience" aria-label="Интерактивное поздравление">
+      <canvas id="world" aria-hidden="true"></canvas>
+      <div class="canvas-vignette" aria-hidden="true"></div>
+
+      <section class="welcome-layer" id="welcomeLayer" aria-label="Начало поздравления">
+        <div class="welcome-card" id="welcomeCard">
+          <p class="welcome-eyebrow">небольшой вопросик</p>
+          <h2>Ты будешь смотреть поздравление?</h2>
+          <div class="answer-row">
+            <button class="answer answer-yes" id="yesButton" type="button">Да ✨</button>
+            <button class="answer answer-no" id="noButton" type="button">Нет</button>
+          </div>
+          <p class="no-message" id="noMessage" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <div class="caption-wrap" id="captionWrap" aria-live="polite">
+        <p class="caption-kicker" id="captionKicker"></p>
+        <p class="story-caption" id="storyCaption"></p>
+      </div>
+
+      <div class="notification" id="notification" aria-live="polite">
+        <div class="notification-icon" aria-hidden="true">✦</div>
+        <div class="notification-content">
+          <div class="notification-top"><span>УВЕДОМЛЕНИЕ</span><span>сейчас</span></div>
+          <p class="notification-message">Неважно, сколько бы тебя ни тревожили, ты всегда находила красивые моменты.</p>
+          <div class="notification-noise" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="liquid-ui" id="liquidUi" aria-label="Поздравление">
+        <article class="glass-card confession-card" id="confessionCard">
+          <div class="card-stamp" aria-hidden="true">✦</div>
+          <p class="glass-eyebrow">между нами</p>
+          <p class="confession-text">Ну, в общем, что хочу сказать: честно, рад, что ты, маленькая, со мной таким пиздатым общаешься 😏 И хочу, чтобы ты всегда была такой пиздатой, крутой и весёлой.</p>
+        </article>
+
+        <article class="glass-card checklist-card" id="checklistCard">
+          <div class="checklist-heading">
+            <div>
+              <p class="glass-eyebrow">годовой отчёт</p>
+              <h2>Три важных достижения</h2>
+            </div>
+            <span class="tiny-sparkle" aria-hidden="true">✧</span>
+          </div>
+          <div class="task-list">
+            <button class="task-row" type="button" data-task="0" aria-pressed="false">
+              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
+              <span class="task-copy">Не спилась</span>
+              <span class="task-status">ДОСТИГНУТО</span>
+            </button>
+            <button class="task-row" type="button" data-task="1" aria-pressed="false">
+              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
+              <span class="task-copy">Не скурилась</span>
+              <span class="task-status">ДОСТИГНУТО</span>
+            </button>
+            <button class="task-row" type="button" data-task="2" aria-pressed="false">
+              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
+              <span class="task-copy">Нашла такого пиздатого друга, как я</span>
+              <span class="task-status">ДОСТИГНУТО</span>
+            </button>
+          </div>
+          <p class="check-hint" id="checkHint">Нажми на каждый квадратик ✦</p>
+        </article>
+
+        <article class="glass-card birthday-card" id="birthdayCard">
+          <p class="glass-eyebrow">и самое главное…</p>
+          <h2 class="birthday-line"><button class="spoiler-word" type="button" data-word="С днём" aria-label="Открыть слова «С днём»"><span class="spoiler-real">С днём</span><span class="spoiler-mask" aria-hidden="true">••••••</span></button> <button class="spoiler-word" type="button" data-word="рождения" aria-label="Открыть слово «рождения»"><span class="spoiler-real">рождения</span><span class="spoiler-mask" aria-hidden="true">••••••••</span></button> <span class="birthday-emoji">🎉🎉🎉🎉🎉</span></h2>
+          <p class="birthday-hint" id="birthdayHint">Открывай по словам — не всё сразу 😉</p>
+          <div class="reveal-progress" id="revealProgress"><span></span><span></span></div>
+        </article>
+      </div>
+
+      <button class="scroll-cue" id="scrollCue" type="button" aria-label="Перейти к финальному поздравлению">
+        <span class="scroll-cue-arrow" aria-hidden="true">↓</span>
+        <span>листни вниз</span>
+      </button>
+      <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+      <div class="blink-shutter" id="blinkShutter" aria-hidden="true"></div>
+    </section>
+
+    <section class="finale" id="finale" aria-label="Финальное поздравление">
+      <div class="finale-sky" aria-hidden="true">
+        <span class="final-star star-a">✦</span><span class="final-star star-b">✧</span><span class="final-star star-c">✦</span><span class="final-star star-d">✧</span>
+        <span class="final-orb orb-one"></span><span class="final-orb orb-two"></span>
+        <div class="final-horizon"></div>
+      </div>
+      <div class="finale-content">
+        <p class="final-eyebrow">для самой Оли</p>
+        <p class="final-wish">Будь всегда весёлой и радостной. Никогда не грусти и не позволяй никому заставлять тебя грустить. Если и плакать — то только от радости.</p>
+        <h1>С днём рождения,<br><span>Оля</span> <span class="final-emojis">🎉🎉🎉🎉🎉</span></h1>
+        <p class="final-small">не забывай, через годик присылаешь, если драться будешь)</p>
+        <button class="replay-button" id="replayButton" type="button"><span aria-hidden="true">↻</span> Может, повторим?</button>
+      </div>
+      <div class="final-footer">с теплом и немножко с наглостью ✦</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
