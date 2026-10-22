@@ -3,135 +3,167 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#d9dce0">
-  <meta name="description" content="Маленькое интерактивное поздравление для Оли">
-  <title>Для Оли ✦</title>
+  <meta name="theme-color" content="#dff4ff">
+  <meta name="description" content="Маленькое интерактивное поздравление для Оли — 17 лет">
+  <title>Оля, тебе 17 ✨</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="orientation-gate" id="orientationGate" aria-live="polite">
-    <div class="orientation-inner">
-      <div class="flip-demo" aria-hidden="true">
-        <span class="orbit-arrow orbit-arrow-one">↻</span>
-        <span class="orbit-arrow orbit-arrow-two">↺</span>
-        <svg class="phone-portrait" viewBox="0 0 68 116" role="img" aria-label="Телефон вертикально">
-          <rect x="7" y="2" width="54" height="112" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
-          <rect x="12" y="10" width="44" height="92" rx="5" fill="currentColor" opacity=".09"/>
-          <rect x="27" y="5" width="14" height="2.5" rx="1.2" fill="currentColor"/>
-          <circle cx="34" cy="108" r="2" fill="currentColor"/>
-        </svg>
-        <svg class="phone-landscape" viewBox="0 0 116 68" role="img" aria-label="Телефон горизонтально">
-          <rect x="2" y="7" width="112" height="54" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
-          <rect x="10" y="12" width="92" height="44" rx="5" fill="currentColor" opacity=".09"/>
-          <rect x="5" y="27" width="2.5" height="14" rx="1.2" fill="currentColor"/>
-          <circle cx="108" cy="34" r="2" fill="currentColor"/>
-        </svg>
-      </div>
-      <p class="orientation-kicker">Маленькая история для тебя</p>
-      <h1>Поверни экранчик</h1>
-      <p class="orientation-copy">Это поздравление оживает, когда телефон лежит горизонтально ✨</p>
-    </div>
+  <div class="rotate-hint" id="rotateHint" aria-live="polite">
+    <div class="rotate-phone" aria-hidden="true"><span></span></div>
+    <p class="eyebrow">маленький сюрприз</p>
+    <h1>Поверни телефончик</h1>
+    <p>Так всё будет выглядеть намного красивее ✨</p>
   </div>
 
-  <main class="page-shell" id="pageShell">
-    <section class="experience" id="experience" aria-label="Интерактивное поздравление">
-      <canvas id="world" aria-hidden="true"></canvas>
-      <div class="canvas-vignette" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb-a"></span><span class="orb orb-b"></span><span class="orb orb-c"></span>
+    <span class="spark spark-a">✦</span><span class="spark spark-b">✧</span><span class="spark spark-c">✦</span><span class="spark spark-d">✧</span>
+    <div class="grain"></div>
+  </div>
 
-      <section class="welcome-layer" id="welcomeLayer" aria-label="Начало поздравления">
-        <div class="welcome-card" id="welcomeCard">
-          <p class="welcome-eyebrow">небольшой вопросик</p>
-          <h2>Ты будешь смотреть поздравление?</h2>
-          <div class="answer-row">
-            <button class="answer answer-yes" id="yesButton" type="button">Да ✨</button>
-            <button class="answer answer-no" id="noButton" type="button">Нет</button>
-          </div>
-          <p class="no-message" id="noMessage" role="status" aria-live="polite"></p>
+  <main class="app" id="app">
+    <div class="topbar">
+      <div class="brand"><span class="brand-star">✳</span><span>ОЛЯ<span class="brand-dot">.</span></span></div>
+      <div class="top-note">маленький сайт · большие пожелания</div>
+      <div class="age-pill">17 <span>♡</span></div>
+    </div>
+
+    <!-- Экран 1: вход -->
+    <section class="screen active welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
+      <div class="welcome-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> ЭТОТ ДЕНЬ — ТВОЙ</p>
+        <h1 id="welcomeTitle">Оля, у меня<br>для тебя <span class="marker">кое-что</span> есть.</h1>
+        <p class="lead">Не обычная открытка. Тут кое-где нужно нажимать, искать и немножко улыбаться.</p>
+        <div class="answer-wrap">
+          <button class="btn btn-primary" id="yesButton" type="button">Ну показывай <span>↗</span></button>
+          <button class="btn btn-quiet" id="noButton" type="button">Не, не хочу</button>
         </div>
-      </section>
-
-      <div class="caption-wrap" id="captionWrap" aria-live="polite">
-        <p class="caption-kicker" id="captionKicker"></p>
-        <p class="story-caption" id="storyCaption"></p>
+        <p class="no-message" id="noMessage" role="status" aria-live="polite"></p>
+        <div class="tiny-note"><span>✦</span> Сделано лично для Оли</div>
       </div>
 
-      <div class="notification" id="notification" aria-live="polite">
-        <div class="notification-icon" aria-hidden="true">✦</div>
-        <div class="notification-content">
-          <div class="notification-top"><span>УВЕДОМЛЕНИЕ</span><span>сейчас</span></div>
-          <p class="notification-message">Неважно, сколько бы тебя ни тревожили, ты всегда находила красивые моменты.</p>
-          <div class="notification-noise" aria-hidden="true"><i></i><i></i><i></i></div>
-        </div>
+      <div class="welcome-art" aria-label="Подарок с воздушными шариками">
+        <div class="art-halo"></div>
+        <div class="orbit orbit-1"></div><div class="orbit orbit-2"></div>
+        <div class="balloon balloon-blue"><i></i></div>
+        <div class="balloon balloon-yellow"><i></i></div>
+        <div class="balloon balloon-white"><i></i></div>
+        <div class="floating-heart heart-one">♥</div><div class="floating-heart heart-two">✦</div><div class="floating-heart heart-three">✧</div>
+        <div class="gift-shadow"></div>
+        <button class="gift-box" id="heroGift" type="button" aria-label="Потрогать подарок">
+          <span class="gift-lid"><i></i></span><span class="gift-body"><i></i></span><span class="gift-bow bow-left"></span><span class="gift-bow bow-right"></span>
+        </button>
+        <div class="art-caption"><span class="caption-line"></span> ТВОЙ МАЛЕНЬКИЙ СЮРПРИЗ</div>
       </div>
-
-      <div class="liquid-ui" id="liquidUi" aria-label="Поздравление">
-        <article class="glass-card confession-card" id="confessionCard">
-          <div class="card-stamp" aria-hidden="true">✦</div>
-          <p class="glass-eyebrow">между нами</p>
-          <p class="confession-text">Ну, в общем, что хочу сказать: честно, рад, что ты, маленькая, со мной таким пиздатым общаешься 😏 И хочу, чтобы ты всегда была такой пиздатой, крутой и весёлой.</p>
-        </article>
-
-        <article class="glass-card checklist-card" id="checklistCard">
-          <div class="checklist-heading">
-            <div>
-              <p class="glass-eyebrow">годовой отчёт</p>
-              <h2>Три важных достижения</h2>
-            </div>
-            <span class="tiny-sparkle" aria-hidden="true">✧</span>
-          </div>
-          <div class="task-list">
-            <button class="task-row" type="button" data-task="0" aria-pressed="false">
-              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
-              <span class="task-copy">Не спилась</span>
-              <span class="task-status">ДОСТИГНУТО</span>
-            </button>
-            <button class="task-row" type="button" data-task="1" aria-pressed="false">
-              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
-              <span class="task-copy">Не скурилась</span>
-              <span class="task-status">ДОСТИГНУТО</span>
-            </button>
-            <button class="task-row" type="button" data-task="2" aria-pressed="false">
-              <span class="fake-checkbox" aria-hidden="true"><span>✓</span></span>
-              <span class="task-copy">Нашла такого пиздатого друга, как я</span>
-              <span class="task-status">ДОСТИГНУТО</span>
-            </button>
-          </div>
-          <p class="check-hint" id="checkHint">Нажми на каждый квадратик ✦</p>
-        </article>
-
-        <article class="glass-card birthday-card" id="birthdayCard">
-          <p class="glass-eyebrow">и самое главное…</p>
-          <h2 class="birthday-line"><button class="spoiler-word" type="button" data-word="С днём" aria-label="Открыть слова «С днём»"><span class="spoiler-real">С днём</span><span class="spoiler-mask" aria-hidden="true">••••••</span></button> <button class="spoiler-word" type="button" data-word="рождения" aria-label="Открыть слово «рождения»"><span class="spoiler-real">рождения</span><span class="spoiler-mask" aria-hidden="true">••••••••</span></button> <span class="birthday-emoji">🎉🎉🎉🎉🎉</span></h2>
-          <p class="birthday-hint" id="birthdayHint">Открывай по словам — не всё сразу 😉</p>
-          <div class="reveal-progress" id="revealProgress"><span></span><span></span></div>
-        </article>
-      </div>
-
-      <button class="scroll-cue" id="scrollCue" type="button" aria-label="Перейти к финальному поздравлению">
-        <span class="scroll-cue-arrow" aria-hidden="true">↓</span>
-        <span>листни вниз</span>
-      </button>
-      <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
-      <div class="blink-shutter" id="blinkShutter" aria-hidden="true"></div>
     </section>
 
-    <section class="finale" id="finale" aria-label="Финальное поздравление">
-      <div class="finale-sky" aria-hidden="true">
-        <span class="final-star star-a">✦</span><span class="final-star star-b">✧</span><span class="final-star star-c">✦</span><span class="final-star star-d">✧</span>
-        <span class="final-orb orb-one"></span><span class="final-orb orb-two"></span>
-        <div class="final-horizon"></div>
+    <!-- Экран 2: коробка -->
+    <section class="screen gift-screen" id="giftScreen" aria-labelledby="giftTitle" hidden>
+      <div class="section-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> ПУНКТ 01 · ОТКРЫВАЕМ</p>
+        <h2 id="giftTitle">Семнадцать.<br><span class="blue-ink">Звучит красиво, да?</span></h2>
+        <p class="lead">Внутри не айфон и не миллион евро. Но кое-что от души — точно есть.</p>
+        <button class="btn btn-primary" id="openGiftButton" type="button">Открыть коробочку <span>✦</span></button>
+        <div class="wish-reveal" id="wishReveal" aria-live="polite">
+          <span class="reveal-icon">✿</span>
+          <p>Желаю тебе побольше моментов, которые захочется сохранить. И людей, рядом с которыми можно быть собой.</p>
+          <button class="text-button" id="toStarsButton" type="button">Ладно, что там дальше? <span>→</span></button>
+        </div>
       </div>
-      <div class="finale-content">
-        <p class="final-eyebrow">для самой Оли</p>
-        <p class="final-wish">Будь всегда весёлой и радостной. Никогда не грусти и не позволяй никому заставлять тебя грустить. Если и плакать — то только от радости.</p>
-        <h1>С днём рождения,<br><span>Оля</span> <span class="final-emojis">🎉🎉🎉🎉🎉</span></h1>
+      <div class="gift-stage">
+        <div class="ring ring-one"></div><div class="ring ring-two"></div>
+        <div class="gift-glow"></div>
+        <div class="big-gift" id="bigGift" aria-hidden="true">
+          <div class="gift-spark spark-top">✦</div><div class="gift-spark spark-left">✧</div><div class="gift-spark spark-right">✦</div>
+          <div class="big-gift-lid"><span></span></div><div class="big-gift-base"><span></span></div>
+          <div class="big-bow bow-a"></div><div class="big-bow bow-b"></div>
+          <div class="gift-inside">♡</div>
+        </div>
+        <div class="stage-label"><span class="stage-dot"></span> НУ ЖЕ, НЕ СТЕСНЯЙСЯ</div>
+      </div>
+    </section>
+
+    <!-- Экран 3: маленькая игра -->
+    <section class="screen stars-screen" id="starsScreen" aria-labelledby="starsTitle" hidden>
+      <div class="section-copy stars-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> ПУНКТ 02 · МИНИ-ИГРА</p>
+        <h2 id="starsTitle">Поймай пять<br><span class="blue-ink">маленьких искр.</span></h2>
+        <p class="lead">Они разбежались по экрану. Тапни по каждой — и откроется кое-что секретное.</p>
+        <div class="star-counter"><span class="counter-icon">✦</span><span id="starCount">0</span><span class="counter-slash">/</span><span>5 найдено</span><div class="counter-track"><span id="counterFill"></span></div></div>
+        <div class="secret-reveal" id="secretReveal" aria-live="polite">
+          <p class="secret-label">СЕКРЕТНОЕ СООБЩЕНИЕ</p>
+          <p class="secret-text">Честно, рад, что ты, маленькая, со мной таким пиздатым общаешься 😏 Оставайся такой же крутой, весёлой и настоящей.</p>
+          <button class="text-button" id="toChecklistButton" type="button">Есть ещё важный отчёт <span>→</span></button>
+        </div>
+      </div>
+      <div class="star-field" id="starField" aria-label="Найди пять звёздочек">
+        <div class="star-field-glow"></div>
+        <button class="collect-star star-1" type="button" aria-label="Найти искру 1" data-star="0">✦</button>
+        <button class="collect-star star-2" type="button" aria-label="Найти искру 2" data-star="1">✧</button>
+        <button class="collect-star star-3" type="button" aria-label="Найти искру 3" data-star="2">✦</button>
+        <button class="collect-star star-4" type="button" aria-label="Найти искру 4" data-star="3">✧</button>
+        <button class="collect-star star-5" type="button" aria-label="Найти искру 5" data-star="4">✦</button>
+        <div class="star-field-hint" id="starFieldHint">ИЩИ ИСКРЫ · НАЖИМАЙ НА НИХ</div>
+        <div class="collect-pop" id="collectPop" aria-hidden="true">+1 искра!</div>
+      </div>
+    </section>
+
+    <!-- Экран 4: чек-лист и поздравление -->
+    <section class="screen checklist-screen" id="checklistScreen" aria-labelledby="checklistTitle" hidden>
+      <div class="section-copy checklist-intro">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> ПУНКТ 03 · ГОДОВОЙ ОТЧЁТ</p>
+        <h2 id="checklistTitle">Три достижения.<br><span class="blue-ink">Все заслуженные.</span></h2>
+        <p class="lead">Подтверди официально. Комиссия в лице меня уже всё одобрила.</p>
+        <div class="checklist-progress"><span id="taskProgressText">0 из 3 подтверждено</span><div class="progress-line"><span id="taskProgressBar"></span></div></div>
+      </div>
+      <div class="checklist-panel">
+        <div class="panel-top"><span>ОЛЯ · ОТЧЁТ №017</span><span class="approved-pill" id="approvedPill">НА ПРОВЕРКЕ</span></div>
+        <button class="task-row" type="button" data-task="0" aria-pressed="false"><span class="task-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg></span><span class="task-name">Не спилась</span><span class="task-status">ДОСТИГНУТО</span></button>
+        <button class="task-row" type="button" data-task="1" aria-pressed="false"><span class="task-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg></span><span class="task-name">Не скурилась</span><span class="task-status">ДОСТИГНУТО</span></button>
+        <button class="task-row" type="button" data-task="2" aria-pressed="false"><span class="task-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg></span><span class="task-name">Нашла такого пиздатого друга, как я</span><span class="task-status">ДОСТИГНУТО</span></button>
+        <div class="panel-bottom"><span>ИТОГ: ОЛЯ — КРАСАВА</span><span>✦ 2026</span></div>
+        <button class="btn btn-primary panel-continue" id="toBirthdayButton" type="button" disabled>К главному поздравлению <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- Экран 5: слова открываются отдельно -->
+    <section class="screen birthday-screen" id="birthdayScreen" aria-labelledby="birthdayTitle" hidden>
+      <div class="birthday-sparkles" aria-hidden="true"><i>✦</i><i>✧</i><i>✦</i><i>✧</i><i>✦</i></div>
+      <div class="birthday-content">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> И НАКОНЕЦ-ТО…</p>
+        <div class="birthday-heading" id="birthdayTitle">
+          <button class="spoiler-word" data-word="0" type="button" aria-label="Открыть слова С днём"><span class="real-word">С днём</span><span class="word-mask">•••••</span></button>
+          <button class="spoiler-word" data-word="1" type="button" aria-label="Открыть слово рождения"><span class="real-word">рождения</span><span class="word-mask">••••••••</span></button>
+        </div>
+        <div class="emoji-line" aria-label="Праздничные смайлики">🎉 🎉 🎉 🎉 🎉</div>
+        <p class="birthday-instruction" id="birthdayInstruction">Открывай слова по одному. И желательно с пафосом.</p>
+        <div class="word-progress"><span></span><span></span></div>
+        <button class="scroll-final" id="scrollFinalButton" type="button" hidden><span class="down-arrow">↓</span><span>А теперь в самый низ</span></button>
+      </div>
+    </section>
+
+    <!-- Финальный экран -->
+    <section class="screen finale-screen" id="finaleScreen" aria-labelledby="finalTitle" hidden>
+      <div class="final-balloons" aria-hidden="true"><span>●</span><span>●</span><span>●</span><span>●</span><span>●</span></div>
+      <div class="final-confetti" id="finalConfetti" aria-hidden="true"></div>
+      <div class="final-card">
+        <div class="final-seal">17 <span>♡</span></div>
+        <p class="eyebrow">ДЛЯ САМОЙ ОЛИ</p>
+        <h2 id="finalTitle">Будь всегда<br><span class="blue-ink">счастливой.</span></h2>
+        <p class="final-wish">Будь весёлой и радостной. Никогда не грусти и не позволяй никому заставлять тебя грустить. А если и плакать — то только от радости.</p>
+        <div class="final-divider"><span>✦</span><i></i><span>✦</span></div>
+        <p class="final-birthday">С днём рождения,<br><span>Оля!</span> 🎉🎉🎉</p>
         <p class="final-small">не забывай, через годик присылаешь, если драться будешь)</p>
-        <button class="replay-button" id="replayButton" type="button"><span aria-hidden="true">↻</span> Может, повторим?</button>
+        <button class="btn btn-primary replay-button" id="replayButton" type="button"><span>↻</span> Может, повторим?</button>
       </div>
-      <div class="final-footer">с теплом и немножко с наглостью ✦</div>
+      <p class="final-footer">сделано с теплом и немножко с наглостью ✦</p>
     </section>
-  </main>
 
+    <div class="bottom-progress" aria-hidden="true"><span id="bottomProgress"></span></div>
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
